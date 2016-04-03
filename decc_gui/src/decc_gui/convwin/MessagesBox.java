@@ -11,7 +11,14 @@ import javax.swing.JPanel;
  * @author nyradr
  */
 public class MessagesBox extends JPanel{
+	/**
+	 * Place the message at the left of the panel
+	 */
 	public static final boolean SIDE_LEFT = true;
+	
+	/**
+	 * Place the message at the right of the panel
+	 */
 	public static final boolean SIDE_RIGHT = false;
 	
 	
@@ -19,6 +26,8 @@ public class MessagesBox extends JPanel{
 	
 	public MessagesBox(){
 		super();
+		
+		messages = new ArrayList<>();
 		
 		this.setLayout(new GridLayout(10, 1));
 	}
