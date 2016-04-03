@@ -14,6 +14,10 @@ public class MainWin extends JFrame implements IDeccUser{
 	public MainWin(){
 		super();
 	}
+	
+	private void build(){
+		
+	}
 
 	@Override
 	public void onNewPeer(String host) {
