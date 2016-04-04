@@ -53,8 +53,9 @@ public class MessagesBox extends JScrollPane{
 		Message mess = new Message(message,
 				(side)? FlowLayout.LEFT : FlowLayout.RIGHT
 						);
-		
-		panel.add(mess);
+	
 		messages.add(mess);
+		panel.add(mess);
+		panel.revalidate();
 	}
 }
