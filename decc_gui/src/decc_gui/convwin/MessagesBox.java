@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -36,7 +37,7 @@ public class MessagesBox extends JScrollPane{
 		this.setLayout(new ScrollPaneLayout());
 		
 		panel = new JPanel();
-		panel.setLayout(new GridLayout(10,  1));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		this.setViewportView(panel);
 		
