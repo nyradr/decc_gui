@@ -16,8 +16,11 @@ public class TextEntry extends JPanel{
 	JTextField entry;
 	JButton send;
 	
-	public TextEntry(){
+	ITextEntry clb;
+	
+	public TextEntry(ITextEntry clb){
 		super();
+		this.clb = clb;
 		
 		this.setLayout(new FlowLayout());
 		
@@ -51,8 +54,9 @@ public class TextEntry extends JPanel{
 	}
 	
 	private void onEntry(){
-		//TODO send back to ConvWin
-		System.out.println(entry.getText());
+		String txt = entry.getText();
 		entry.setText("");
+		
+		clb.onEntry(txt);
 	}
 }
