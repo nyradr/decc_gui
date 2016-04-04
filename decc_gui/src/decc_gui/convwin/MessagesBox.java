@@ -5,12 +5,15 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneLayout;
 
 /**
  * Lists of messages
  * @author nyradr
  */
-public class MessagesBox extends JPanel{
+public class MessagesBox extends JScrollPane{
 	/**
 	 * Place the message at the left of the panel
 	 */
@@ -23,13 +26,20 @@ public class MessagesBox extends JPanel{
 	
 	
 	private ArrayList<Message> messages;
+	private JPanel panel;
 	
 	public MessagesBox(){
-		super();
+		super(VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_NEVER);
 		
 		messages = new ArrayList<>();
 		
-		this.setLayout(new GridLayout(10, 1));
+		this.setLayout(new ScrollPaneLayout());
+		
+		panel = new JPanel();
+		panel.setLayout(new GridLayout(10,  1));
+		
+		this.setViewportView(panel);
+		
 	}
 	
 	/**
@@ -43,7 +53,7 @@ public class MessagesBox extends JPanel{
 				(side)? FlowLayout.LEFT : FlowLayout.RIGHT
 						);
 		
-		this.add(mess);
+		panel.add(mess);
 		messages.add(mess);
 	}
 }
