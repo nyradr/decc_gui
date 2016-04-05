@@ -10,6 +10,7 @@ import decc.DeccInstance;
 import decc.IDeccUser;
 import decc_gui.mainwin.logstab.LogTabPanel;
 import decc_gui.mainwin.logstab.LogTextArea;
+import decc_gui.mainwin.peermanagement.PeerManagementTab;
 
 /**
  * Main window for DECC management
@@ -22,19 +23,24 @@ public class MainWin extends JFrame implements IDeccUser{
 	
 	private JTabbedPane tabs;
 	private LogTabPanel logTab;
+	private PeerManagementTab peersTab;
 	
 	public MainWin(){
 		super();
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		try {
+			decc = new DeccInstance(4242, "Foo", this);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
 		
 		this.setSize(400,  200);
 		
 		build();
 		
-		try {
-			decc = new DeccInstance(4242, "Foo", this);
-		} catch (IOException e) {
-			logTab.log(e.getMessage());
-		}
+		
 		
 	}
 	
@@ -42,8 +48,12 @@ public class MainWin extends JFrame implements IDeccUser{
 		tabs = new JTabbedPane();
 		this.getContentPane().add(tabs, BorderLayout.CENTER);
 		
+		peersTab = new PeerManagementTab(decc);
+		tabs.add("Peers", peersTab);
+		
 		logTab = new LogTabPanel();
 		tabs.add("Log", logTab);
+		
 		
 		
 	}
