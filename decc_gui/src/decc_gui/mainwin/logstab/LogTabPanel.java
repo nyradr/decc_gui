@@ -20,4 +20,12 @@ public class LogTabPanel extends JPanel{
 		this.add(lta, BorderLayout.CENTER);
 		
 	}
+	
+	/**
+	 * Log string into the log text area
+	 * @param mess message to log
+	 */
+	public void log(String mess){
+		lta.log(mess);
+	}
 }
