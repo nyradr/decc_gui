@@ -25,6 +25,7 @@ public class ConvManagementTab extends JPanel{
 	
 	private JButton closeConv;
 	private JButton openConv;
+	private JButton changeName;
 	
 	public ConvManagementTab(DeccInstance decc){
 		super();
@@ -42,6 +43,19 @@ public class ConvManagementTab extends JPanel{
 		
 		JPanel cmdP = new JPanel();
 		cmdP.setLayout(new BorderLayout());
+		
+		changeName = new JButton("Change name");
+		changeName.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nname = JOptionPane.showInputDialog("New name");
+				
+				decc.setname(nname);
+			}
+		});
+		cmdP.add(changeName);
+		
 		
 		closeConv = new JButton("Close conversation");
 		closeConv.addActionListener(new ActionListener() {
