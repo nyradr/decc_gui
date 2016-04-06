@@ -1,4 +1,4 @@
-package decc_gui.mainwin;
+package decc_gui.mainwin.logstab;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
