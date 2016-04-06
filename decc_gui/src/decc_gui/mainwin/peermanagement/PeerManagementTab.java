@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import decc.DeccInstance;
+import decc_gui.mainwin.ScrollableList;
 
 /**
  * Main class for peer management tab
@@ -20,7 +21,7 @@ public class PeerManagementTab extends JPanel{
 	
 	private DeccInstance decc;
 	
-	PeerList pl;
+	ScrollableList pl;
 	
 	JButton remPeer;
 	JButton addPeer;
@@ -37,7 +38,7 @@ public class PeerManagementTab extends JPanel{
 	private void build(){
 		this.setLayout(new BorderLayout());
 		
-		pl = new PeerList(decc.getIpPeer());
+		pl = new ScrollableList(decc.getIpPeer());
 		
 		this.add(pl, BorderLayout.CENTER);
 	}
@@ -51,8 +52,8 @@ public class PeerManagementTab extends JPanel{
 		remPeer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(pl.getSelectedPeer() != null)	// if selected element -> remove into decc
-					decc.disconnectPeer(pl.getSelectedPeer());
+				if(pl.getSelectedElement() != null)	// if selected element -> remove into decc
+					decc.disconnectPeer(pl.getSelectedElement());
 			}
 		});
 		commandPanel.add(remPeer, BorderLayout.NORTH);
@@ -67,7 +68,7 @@ public class PeerManagementTab extends JPanel{
 				
 				try{	// try connect and refresh display
 					decc.connect(host);
-					pl.resetValues(decc.getIpPeer());
+					pl.resetElements(decc.getIpPeer());
 				}catch (UnknownHostException uhe){	// error
 					JOptionPane.showMessageDialog(null, "Impossible to reach the target", "Error", JOptionPane.ERROR_MESSAGE);
 				}catch (IOException ioe){
