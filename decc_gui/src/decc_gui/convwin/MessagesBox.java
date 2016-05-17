@@ -14,7 +14,7 @@ import javax.swing.ScrollPaneLayout;
  * Lists of messages
  * @author nyradr
  */
-public class MessagesBox extends JScrollPane{
+class MessagesBox extends JScrollPane{
 	/**
 	 * Place the message at the left of the panel
 	 */

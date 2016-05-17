@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class TextEntry extends JPanel{
+class TextEntry extends JPanel{
 	
 	JTextField entry;
 	JButton send;

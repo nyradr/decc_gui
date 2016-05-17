@@ -4,7 +4,7 @@ package decc_gui.convwin;
  * Callback for TextEntry
  * @author nyradr
  */
-public interface ITextEntry {
+interface ITextEntry {
 	
 	/**
 	 * Produced when text is entered

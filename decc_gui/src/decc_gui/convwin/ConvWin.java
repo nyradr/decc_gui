@@ -1,4 +1,4 @@
-package decc_gui;
+package decc_gui.convwin;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -9,10 +9,6 @@ import javax.swing.border.Border;
 
 import decc.DeccInstance;
 import decc.ICom;
-import decc_gui.convwin.ITextEntry;
-import decc_gui.convwin.Message;
-import decc_gui.convwin.MessagesBox;
-import decc_gui.convwin.TextEntry;
 
 /**
  * Conversation window between 2 peers in DECC

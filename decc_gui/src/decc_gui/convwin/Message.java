@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  * Box for message storage and draw
  * @author nyradr
  */
-public class Message extends JPanel{
+class Message extends JPanel{
 	
 	/**
 	 * Message to display

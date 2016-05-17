@@ -52,8 +52,10 @@ public class PeerManagementTab extends JPanel{
 		remPeer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(pl.getSelectedElement() != null)	// if selected element -> remove into decc
+				if(pl.getSelectedElement() != null){	// if selected element -> remove into decc
 					decc.disconnectPeer(pl.getSelectedElement());
+					pl.resetElements(decc.getIpPeer());
+				}
 			}
 		});
 		commandPanel.add(remPeer, BorderLayout.NORTH);

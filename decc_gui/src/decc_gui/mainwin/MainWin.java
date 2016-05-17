@@ -1,4 +1,4 @@
-package decc_gui;
+package decc_gui.mainwin;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
@@ -39,11 +39,9 @@ public class MainWin extends JFrame implements IDeccUser{
 		}
 		
 		this.setSize(400,  200);
+		this.setLocationRelativeTo(null);
 		
 		build();
-		
-		
-		
 	}
 	
 	private void build(){
@@ -58,9 +56,6 @@ public class MainWin extends JFrame implements IDeccUser{
 		
 		logTab = new LogTabPanel();
 		tabs.add("Log", logTab);
-		
-		
-		
 	}
 
 	@Override
