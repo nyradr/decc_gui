@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -11,6 +13,7 @@ import javax.swing.JPanel;
 
 import decc.DeccInstance;
 import decc.ICom;
+import decc_gui.convwin.ConvWin;
 import decc_gui.mainwin.ScrollableList;
 
 /**
@@ -27,10 +30,13 @@ public class ConvManagementTab extends JPanel{
 	private JButton openConv;
 	private JButton changeName;
 	
+	private Map<String, ConvWin> convwins;
+	
 	public ConvManagementTab(DeccInstance decc){
 		super();
 		
 		this.decc = decc;
+		convwins = new TreeMap<>();
 		
 		build();
 	}
@@ -44,6 +50,7 @@ public class ConvManagementTab extends JPanel{
 		JPanel cmdP = new JPanel();
 		cmdP.setLayout(new BorderLayout());
 		
+		// changing name
 		changeName = new JButton("Change name");
 		changeName.addActionListener(new ActionListener() {
 			
@@ -56,20 +63,20 @@ public class ConvManagementTab extends JPanel{
 		});
 		cmdP.add(changeName);
 		
-		
+		// close conversation
 		closeConv = new JButton("Close conversation");
 		closeConv.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(convList.getSelectedElement() != null)
+				if(convList.getSelectedElement() != null){
 					decc.closeCom(decc.getComs()[convList.getSelectedIndex()].getComid());
-				
-				convList.resetElements(buildListElements());
+				}
 			}
 		});
 		
 		cmdP.add(closeConv, BorderLayout.NORTH);
 		
+		// open new conversation
 		openConv = new JButton("Open new conversation");
 		openConv.addActionListener(new ActionListener() {
 			@Override
@@ -77,14 +84,16 @@ public class ConvManagementTab extends JPanel{
 				String target = JOptionPane.showInputDialog("Name of the target to reach");
 				
 				decc.roadTo(target);
-				
-				convList.resetElements(buildListElements());
 			}
 		});
 		
 		cmdP.add(openConv, BorderLayout.SOUTH);
 		
 		this.add(cmdP, BorderLayout.EAST);
+	}
+	
+	private void refresh(){
+		convList.resetElements(buildListElements());
 	}
 	
 	/**
@@ -98,5 +107,31 @@ public class ConvManagementTab extends JPanel{
 			elems.add(ic.getTargetName());
 		
 		return elems.toArray(new String[0]);
+	}
+	
+	public void newConv(String comid){
+		ConvWin cv = new ConvWin(decc, decc.getComByComid(comid));
+		cv.setVisible(true);
+		convwins.put(comid, cv);
+		refresh();
+	}
+	
+	public void onMess(String comid, String mess){
+		ICom cm = decc.getComByComid(comid);
+		
+		if(cm != null){
+			convwins.get(comid).receiveMessage(mess);
+		}
+	}
+	
+	public void endConv(String comid){
+		ConvWin cv = convwins.get(comid);
+		
+		if(cv != null){
+			cv.setVisible(false);
+			convwins.remove(comid);
+		}
+		
+		refresh();
 	}
 }

@@ -71,11 +71,13 @@ public class MainWin extends JFrame implements IDeccUser{
 	@Override
 	public void onNewCom(String comid) {
 		logTab.log("New communication opened with COMID : " + comid);
+		convTab.newConv(comid);
 	}
 
 	@Override
 	public void onComEnd(String comid) {
 		logTab.log("Communication with COMID " + comid + " has end");
+		convTab.endConv(comid);
 	}
 
 	@Override
@@ -91,5 +93,6 @@ public class MainWin extends JFrame implements IDeccUser{
 	@Override
 	public void onMess(String comid, String mess) {
 		logTab.log("Message from the COMID " + comid + " received : " + mess);
+		convTab.onMess(comid, mess);
 	}
 }
