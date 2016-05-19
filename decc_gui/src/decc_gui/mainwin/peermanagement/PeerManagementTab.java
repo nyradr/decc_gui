@@ -70,7 +70,7 @@ public class PeerManagementTab extends JPanel{
 				
 				// try connect and refresh display
 				if(decc.connect(host))
-					pl.resetElements(decc.getConnectedHosts());
+					refresh();
 				else
 					JOptionPane.showMessageDialog(null, "Impossible to reach the target", "Error", JOptionPane.ERROR_MESSAGE);
 			}
@@ -78,5 +78,17 @@ public class PeerManagementTab extends JPanel{
 		commandPanel.add(addPeer, BorderLayout.SOUTH);
 		
 		this.add(commandPanel, BorderLayout.EAST);
+	}
+	
+	private void refresh(){
+		pl.resetElements(decc.getConnectedHosts());
+	}
+	
+	public void newPeer(){
+		refresh();
+	}
+	
+	public void peerdeco(){
+		refresh();
 	}
 }

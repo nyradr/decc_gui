@@ -60,6 +60,7 @@ public class MainWin extends JFrame implements IDeccUser{
 		
 		try {
 			decc = DeccBuilder.getDecc(4242, "Foo", this);
+			decc.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);
@@ -88,11 +89,13 @@ public class MainWin extends JFrame implements IDeccUser{
 	@Override
 	public void onNewPeer(String host) {
 		logTab.log("New peer connected : " + host);
+		peersTab.newPeer();
 	}
 
 	@Override
 	public void onPeerDeco(String host) {
 		logTab.log("Peer disconected : " + host);
+		peersTab.peerdeco();
 	}
 
 	@Override
