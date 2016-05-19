@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import decc.DeccInstance;
+import decc.ui.IDecc;
 import decc_gui.mainwin.ScrollableList;
 
 /**
@@ -19,14 +19,14 @@ import decc_gui.mainwin.ScrollableList;
  */
 public class PeerManagementTab extends JPanel{
 	
-	private DeccInstance decc;
+	private IDecc decc;
 	
 	ScrollableList pl;
 	
 	JButton remPeer;
 	JButton addPeer;
 	
-	public PeerManagementTab(DeccInstance decc){
+	public PeerManagementTab(IDecc decc){
 		super();
 		
 		this.decc = decc;
@@ -38,7 +38,7 @@ public class PeerManagementTab extends JPanel{
 	private void build(){
 		this.setLayout(new BorderLayout());
 		
-		pl = new ScrollableList(decc.getIpPeer());
+		pl = new ScrollableList(decc.getConnectedHosts());
 		
 		this.add(pl, BorderLayout.CENTER);
 	}
@@ -53,8 +53,8 @@ public class PeerManagementTab extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(pl.getSelectedElement() != null){	// if selected element -> remove into decc
-					decc.disconnectPeer(pl.getSelectedElement());
-					pl.resetElements(decc.getIpPeer());
+					decc.disconnect(pl.getSelectedElement());
+					pl.resetElements(decc.getConnectedHosts());
 				}
 			}
 		});
@@ -68,14 +68,11 @@ public class PeerManagementTab extends JPanel{
 				// show input dialog for enter a ip(or host name)
 				String host = JOptionPane.showInputDialog("Type host name or IP of the peer to add");
 				
-				try{	// try connect and refresh display
-					decc.connect(host);
-					pl.resetElements(decc.getIpPeer());
-				}catch (UnknownHostException uhe){	// error
+				// try connect and refresh display
+				if(decc.connect(host))
+					pl.resetElements(decc.getConnectedHosts());
+				else
 					JOptionPane.showMessageDialog(null, "Impossible to reach the target", "Error", JOptionPane.ERROR_MESSAGE);
-				}catch (IOException ioe){
-					ioe.printStackTrace();
-				}
 			}
 		});
 		commandPanel.add(addPeer, BorderLayout.SOUTH);

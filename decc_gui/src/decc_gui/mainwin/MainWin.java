@@ -8,11 +8,11 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
-import decc.DeccInstance;
-import decc.IDeccUser;
+import decc.DeccBuilder;
+import decc.ui.IDecc;
+import decc.ui.IDeccUser;
 import decc_gui.mainwin.convmanag.ConvManagementTab;
 import decc_gui.mainwin.logstab.LogTabPanel;
-import decc_gui.mainwin.logstab.LogTextArea;
 import decc_gui.mainwin.peermanagement.PeerManagementTab;
 
 /**
@@ -22,7 +22,7 @@ import decc_gui.mainwin.peermanagement.PeerManagementTab;
  */
 public class MainWin extends JFrame implements IDeccUser{
 	
-	private DeccInstance decc;
+	private IDecc decc;
 	
 	private JTabbedPane tabs;
 	private LogTabPanel logTab;
@@ -59,7 +59,7 @@ public class MainWin extends JFrame implements IDeccUser{
 		});
 		
 		try {
-			decc = new DeccInstance(4242, "Foo", this);
+			decc = DeccBuilder.getDecc(4242, "Foo", this);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);

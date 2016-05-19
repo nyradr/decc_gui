@@ -1,14 +1,11 @@
 package decc_gui.convwin;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
 
-import decc.DeccInstance;
-import decc.ICom;
+import decc.ui.ICom;
+import decc.ui.IDecc;
 
 /**
  * Conversation window between 2 peers in DECC
@@ -17,13 +14,13 @@ import decc.ICom;
  */
 public class ConvWin extends JFrame implements ITextEntry{
 	
-	private DeccInstance decc;
+	private IDecc decc;
 	private ICom conv;
 	
 	private MessagesBox messbox;
 	private TextEntry textEntry;
 	
-	public ConvWin(DeccInstance decc, ICom conv){
+	public ConvWin(IDecc decc, ICom conv){
 		super();
 		
 		this.decc = decc;
@@ -49,7 +46,7 @@ public class ConvWin extends JFrame implements ITextEntry{
 	@Override
 	public void onEntry(String txt) {
 		if(txt.length() > 0){
-			decc.send(conv.getComid(), txt);
+			decc.sendTo(conv.getComid(), txt);
 			messbox.addMessage(txt, MessagesBox.SIDE_LEFT);
 		}
 	}

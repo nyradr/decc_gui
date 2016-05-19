@@ -11,8 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import decc.DeccInstance;
-import decc.ICom;
+import decc.ui.ICom;
+import decc.ui.IDecc;
 import decc_gui.convwin.ConvWin;
 import decc_gui.mainwin.ScrollableList;
 
@@ -22,7 +22,7 @@ import decc_gui.mainwin.ScrollableList;
  */
 public class ConvManagementTab extends JPanel{
 	
-	private DeccInstance decc;
+	private IDecc decc;
 	
 	private ScrollableList convList;
 	
@@ -32,7 +32,7 @@ public class ConvManagementTab extends JPanel{
 	
 	private Map<String, ConvWin> convwins;
 	
-	public ConvManagementTab(DeccInstance decc){
+	public ConvManagementTab(IDecc decc){
 		super();
 		
 		this.decc = decc;
@@ -83,7 +83,7 @@ public class ConvManagementTab extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				String target = JOptionPane.showInputDialog("Name of the target to reach");
 				
-				decc.roadTo(target);
+				decc.startCom(target);
 			}
 		});
 		
@@ -110,14 +110,14 @@ public class ConvManagementTab extends JPanel{
 	}
 	
 	public void newConv(String comid){
-		ConvWin cv = new ConvWin(decc, decc.getComByComid(comid));
+		ConvWin cv = new ConvWin(decc, decc.getCom(comid));
 		cv.setVisible(true);
 		convwins.put(comid, cv);
 		refresh();
 	}
 	
 	public void onMess(String comid, String mess){
-		ICom cm = decc.getComByComid(comid);
+		ICom cm = decc.getCom(comid);
 		
 		if(cm != null){
 			convwins.get(comid).receiveMessage(mess);
