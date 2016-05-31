@@ -3,7 +3,6 @@ package decc_gui.mainwin;
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
@@ -61,7 +60,7 @@ public class MainWin extends JFrame implements IDeccUser{
 		try {
 			decc = DeccBuilder.getDecc(4242, "Foo", this);
 			decc.start();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(-1);
 		}
@@ -109,6 +108,12 @@ public class MainWin extends JFrame implements IDeccUser{
 		logTab.log("Communication with COMID " + comid + " has end");
 		convTab.endConv(comid);
 	}
+	
+	@Override
+	public void onComFail(String comid, String target) {
+		logTab.log("Failed to establish a communicatino with : " + target);
+		convTab.failCom(comid, target);
+	}
 
 	@Override
 	public void onNewRoad(String comid, String hosta, String hostb) {
@@ -125,4 +130,5 @@ public class MainWin extends JFrame implements IDeccUser{
 		logTab.log("Message from the COMID " + comid + " received : " + mess);
 		convTab.onMess(comid, mess);
 	}
+
 }

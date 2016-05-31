@@ -134,4 +134,8 @@ public class ConvManagementTab extends JPanel{
 		
 		refresh();
 	}
+	
+	public void failCom(String comid, String target){
+		JOptionPane.showMessageDialog(null, "Unable to make a communication with : " + target);
+	}
 }
