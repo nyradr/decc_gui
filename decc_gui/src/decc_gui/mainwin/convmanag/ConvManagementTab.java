@@ -58,7 +58,7 @@ public class ConvManagementTab extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				String nname = JOptionPane.showInputDialog("New name");
 				
-				decc.setname(nname);
+				// TODO remove and replace with starting form
 			}
 		});
 		cmdP.add(changeName);

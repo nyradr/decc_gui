@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import decc.DeccBuilder;
+import decc.accounts.Account;
+import decc.options.Crypto;
 import decc.ui.IDecc;
 import decc.ui.IDeccUser;
 import decc_gui.mainwin.convmanag.ConvManagementTab;
@@ -58,7 +60,9 @@ public class MainWin extends JFrame implements IDeccUser{
 		});
 		
 		try {
-			decc = DeccBuilder.getDecc(4242, "Foo", this);
+			Account acc = Account.create("decccli", Crypto.DEF_RSA_LEN);
+			
+			decc = DeccBuilder.getDecc(4242, acc, this);
 			decc.start();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,7 +130,7 @@ public class MainWin extends JFrame implements IDeccUser{
 	}
 
 	@Override
-	public void onMess(String comid, String mess) {
+	public void onMess(String comid, String mess, boolean verified) {
 		logTab.log("Message from the COMID " + comid + " received : " + mess);
 		convTab.onMess(comid, mess);
 	}
